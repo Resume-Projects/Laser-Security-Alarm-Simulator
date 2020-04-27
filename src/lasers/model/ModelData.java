@@ -8,4 +8,5 @@ package lasers.model;
  * @author YOUR NAME HERE
  */
 public class ModelData {
+
 }
