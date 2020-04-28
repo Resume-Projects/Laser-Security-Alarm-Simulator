@@ -1,20 +1,19 @@
 package lasers.model;
 
+import lasers.backtracking.Configuration;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * The model of the lasers safe.  You are free to change this class however
  * you wish, but it should still follow the MVC architecture.
  *
  * @author RIT CS
- * @author YOUR NAME HERE
+ * @author rl2939@g.rit.edu
  */
-public class LasersModel {
+public class LasersModel{
     /** the observers who are registered with this model */
     private List<Observer<LasersModel, ModelData>> observers;
 
@@ -25,6 +24,7 @@ public class LasersModel {
     private int cols;
     private String[][] theGrid;
     private String status;
+
     /**
      * Adds a laser
      */
@@ -104,7 +104,8 @@ public class LasersModel {
             }
             return isGood;
         }
-    }    /**
+    }
+    /**
      * Adds a Pillar
      */
     public class Pillar{
@@ -188,11 +189,10 @@ public class LasersModel {
     }
     /**
      *builds a Safe(2 parameters)
-     * @param mapFile the mapFile
+     *
      * @param autoPlacement the file of inputs
      */
-    public LasersModel(String mapFile, String autoPlacement){
-        initSafe(mapFile);
+    public void input(String autoPlacement){
         try{
             File inputFile = new File(autoPlacement);
             Scanner myReader2= new Scanner(inputFile);
@@ -308,6 +308,13 @@ public class LasersModel {
     public String[][] getTheGrid() {
         return this.theGrid;
     }
+
+    /**
+     * Displays laserBeams
+     * @param row row
+     * @param col col
+     * @param addOrRemove string
+     */
     public void laserBeamChange(int row, int col, String addOrRemove){
 
         String replaceWith = "*" ;
@@ -379,6 +386,13 @@ public class LasersModel {
                 "q = quit application\n" +
                 "r (row, col) = remove a laser from (row, col)\n" +
                 "v = verify\n";
+        notifyObservers(null);
+    }
+
+    /**
+     * Display the board
+     */
+    public void display(){
         notifyObservers(null);
     }
 

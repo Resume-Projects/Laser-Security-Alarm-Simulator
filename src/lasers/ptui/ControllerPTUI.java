@@ -12,7 +12,7 @@ import java.util.Scanner;
  * the operations that are input in the run method.
  *
  * @author RIT CS
- * @author YOUR NAME HERE
+ * @author rl2939@g.rit.edu
  */
 public class ControllerPTUI {
     /**
@@ -37,6 +37,7 @@ public class ControllerPTUI {
      * @param inputFile The name of the input command file, if specified
      */
     public void run(String inputFile) {
+        this.model.input(inputFile);
         try (Scanner userIn = new Scanner(System.in)) {
 
             System.out.flush();
@@ -53,7 +54,7 @@ public class ControllerPTUI {
                         System.out.print("Illegal command, or incorrect input\n");
                     }
                 } else if (inputList.get(0).substring(0, 1).equals("d")) {
-                    update(this.model, null);//todo fix
+                    this.model.display();
                 } else if (inputList.get(0).substring(0, 1).equals("h")) {
                     this.model.help();
                 } else if (inputList.get(0).substring(0, 1).equals("q")) {
@@ -78,26 +79,5 @@ public class ControllerPTUI {
 
             }
         }
-    }
-    public void display (LasersModel safe) {
-
-        System.out.print("  ");
-        for(int c = 0; c < safe.getCols(); c++){
-            System.out.print(c + " ");
-        }
-        System.out.print("\n  ");
-        for(int i = 0; i < safe.getCols(); i++){
-            System.out.print("--");
-        }
-        System.out.print("\n");
-        for(int r = 0; r < safe.getRows(); r++){
-            StringBuilder builder = new StringBuilder();
-            for (int c= 0; c < safe.getCols();c++){
-                builder.append(safe.getTheGrid()[r][c]);
-                builder.append(" ");
-            }
-            System.out.print(r%10+"|"+builder.toString()+"\n");
-        }
-        System.out.print(this.model.getStatus()+"\n");
     }
 }
